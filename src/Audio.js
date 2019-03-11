@@ -20,7 +20,6 @@ class Audio extends React.Component {
         let kick = new Tone.Player("./audio/505/kick.[mp3|ogg]").toMaster();
         let snare = new Tone.Player("./audio/505/snare.[mp3|ogg]").toMaster();
         
-        
         Tone.Buffer.on("load", () => {
 
             let hihatLoop = new Tone.Part(
@@ -44,8 +43,6 @@ class Audio extends React.Component {
             snareLoop.start(0);
             kickLoop.start(0)
         });
-
-
     }
 
     startLoop() {
