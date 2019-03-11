@@ -1,7 +1,7 @@
 import React from "react";
 import Tone from "tone";
 import PlayPause from "./PlayPause";
-import audio from "./audioImport"
+import audioSamples from "./audioImport"
 
 class Audio extends React.Component {
 
@@ -33,19 +33,19 @@ class Audio extends React.Component {
 
             let hihatBar = new Tone.Part(
                 (time) => {
-                    audio.hiHat.start(time);
+                    audioSamples.hiHat.start(time);
                 }, hihatRhythm
             );
             
             let snareBar = new Tone.Part(
                 (time) => {
-                    audio.snare.start(time);
+                    audioSamples.snare.start(time);
                 }, snareRhythm
             )
 
             let kickBar = new Tone.Part(
                 (time) => {
-                    audio.kick.start(time);
+                    audioSamples.kick.start(time);
                 }, kickRhythm
             )
 

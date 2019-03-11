@@ -98,7 +98,7 @@ class StartPage extends React.Component {
                         value={this.state.bpm}
                         min="30"
                         max="280" 
-                        onChange={(event) => this.handleBpm("range", null ,event)}>
+                        onChange={(event) => this.handleBpm("range", null, event)}>
                 </input>
                 <button onClick={this.changeTimeSignature}>tretakt</button>
                 <form>
