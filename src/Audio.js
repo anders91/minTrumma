@@ -1,71 +1,57 @@
 import React from "react";
 import Tone from "tone";
-import PlayPause from "./PlayPause"
+import PlayPause from "./PlayPause";
+import audio from "./audioImport"
 
 class Audio extends React.Component {
 
-    constructor() {
-        super()
-        this.state = {
-            hihatLoop: null,
-            snareLoop: null,
-            kickLoop:  null
-        }
+    constructor(props) {
+        super(props)
+
         this.makeLoop = this.makeLoop.bind(this)
         this.startLoop = this.startLoop.bind(this);
     }
 
     componentDidMount() {
-        this.makeLoop(this.props.hihatRhythm, this.props.snareRhythm, this.props.kickRhythm);
+        console.log(this.props)
+        Tone.Buffer.on("load", () => {
+            this.makeLoop(this.props.hihatRhythm, this.props.snareRhythm, this.props.kickRhythm)
+        })
     }
 
     componentDidUpdate(prevProps, prevState) {
+        console.log(this.props)
+
         if (prevProps.timeSignature !== this.props.timeSignature) {
-            console.log(Tone.Transport);
-            for (let i = 1; i < 37; i++) {
-                Tone.Transport.clear(i)
-            }
-            console.log(Tone.Transport)
 
             this.makeLoop(this.props.hihatRhythm, this.props.snareRhythm, this.props.kickRhythm);
 
         }
       }
-
     makeLoop(hihatRhythm, snareRhythm, kickRhythm) {
-        let hiHat = new Tone.Player("./audio/505/hh.[mp3|ogg]").toMaster();
-        let kick = new Tone.Player("./audio/505/kick.[mp3|ogg]").toMaster();
-        let snare = new Tone.Player("./audio/505/snare.[mp3|ogg]").toMaster();
-        
-        Tone.Buffer.on("load", () => {
+        Tone.Transport.cancel(0)
 
-            let tempHihatLoop = new Tone.Part(
+            let hihatBar = new Tone.Part(
                 (time) => {
-                    hiHat.start(time);
+                    audio.hiHat.start(time);
                 }, hihatRhythm
             );
             
-            let tempSnareLoop = new Tone.Part(
+            let snareBar = new Tone.Part(
                 (time) => {
-                    snare.start(time);
+                    audio.snare.start(time);
                 }, snareRhythm
             )
 
-            let tempKickLoop = new Tone.Part(
+            let kickBar = new Tone.Part(
                 (time) => {
-                    kick.start(time);
+                    audio.kick.start(time);
                 }, kickRhythm
             )
-            this.setState({
-                hihatLoop: tempHihatLoop,
-                snareLoop: tempSnareLoop,
-                kickLoop: tempKickLoop
-            }
-            )
-            tempHihatLoop.start(0);
-            tempKickLoop.start(0);
-            tempSnareLoop.start(0);
-        });
+
+            hihatBar.start(0);
+            snareBar.start(0);
+            kickBar.start(0);
     }
 
     startLoop() {
@@ -74,6 +60,7 @@ class Audio extends React.Component {
     }
 
     render () {
+        console.log(this.props);
         Tone.Transport.bpm.value = this.props.bpm;
         Tone.Transport.timeSignature = this.props.timeSignature;
         Tone.Transport.loop = true;

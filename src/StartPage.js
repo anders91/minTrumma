@@ -3,7 +3,7 @@ import plusImg from "./img/icons8-plus-50.png";
 import minusImg from "./img/icons8-minus-50.png";
 import IncDecButton from "./IncDecButton";
 import Audio from "./Audio";
-import Rhythms from "./Rhytms";
+import rhythms from "./rhytms";
      
 class StartPage extends React.Component {
     constructor() {
@@ -11,8 +11,8 @@ class StartPage extends React.Component {
         this.state = {
             bpm: 120,
             swing: "0",
-            timeSignature: 4,
-            rhythmsObject: Rhythms().fyrtakt
+            timeSignature: "4",
+            rhythms: rhythms.fyrtakt
         }
         this.handleBpm = this.handleBpm.bind(this);
         this.handleSwing = this.handleSwing.bind(this);
@@ -20,17 +20,17 @@ class StartPage extends React.Component {
     }
 
     changeTimeSignature() {
-        if (this.state.timeSignature === 4){
+        if (this.state.timeSignature === "4"){
             this.setState( {
-                    timeSignature: 3,
-                    rhythmsObject: Rhythms().tretakt
+                    timeSignature: "3",
+                    rhythms: rhythms.tretakt
                 }
             )
         }
-        else if (this.state.timeSignature === 3) {
+        else if (this.state.timeSignature === "3") {
             this.setState( {
-                timeSignature: 4,
-                rhythmsObject: Rhythms().fyrtakt
+                timeSignature: "4",
+                rhythms: rhythms.fyrtakt
             }
         )
         }
@@ -68,7 +68,10 @@ class StartPage extends React.Component {
         return (
             <div id="StartPageWrapper">
                 <h3 id="bpm">{this.state.bpm}</h3>
-                <input type="checkbox" onChange={this.handleSwing}></input>
+                <label>
+                    <input type="checkbox" onChange={this.handleSwing}></input>
+                    Swing
+                </label>
                 <br />
                 <IncDecButton 
                     img={plusImg}
@@ -77,9 +80,9 @@ class StartPage extends React.Component {
                 />
                 <Audio 
                     bpm={this.state.bpm}
-                    hihatRhythm = {this.state.rhythmsObject.hihatRhythm}
-                    snareRhythm = {this.state.rhythmsObject.snareRhythm}
-                    kickRhythm = {this.state.rhythmsObject.kickRhythm}
+                    hihatRhythm = {this.state.rhythms.hihatRhythm}
+                    snareRhythm = {this.state.rhythms.snareRhythm}
+                    kickRhythm = {this.state.rhythms.kickRhythm}
                     swing = {this.state.swing}
                     timeSignature = {this.state.timeSignature}
                  />
@@ -98,6 +101,28 @@ class StartPage extends React.Component {
                         onChange={(event) => this.handleBpm("range", null ,event)}>
                 </input>
                 <button onClick={this.changeTimeSignature}>tretakt</button>
+                <form>
+                    <div className="radio">
+                    <label>
+                        <input 
+                            type="radio"
+                            value="4" 
+                            checked={this.state.timeSignature === "4"}
+                            onChange={this.changeTimeSignature}/>
+                        Fyrtakt
+                    </label>
+                    </div>
+                    <div className="radio">
+                    <label>
+                        <input 
+                            type="radio" 
+                            value="3"
+                            checked={this.state.timeSignature === "3"}
+                            onChange={this.changeTimeSignature} /> 
+                        Tretakt
+                    </label>
+                    </div>
+                </form>
             </div>
         )
     }
