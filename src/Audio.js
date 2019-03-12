@@ -68,7 +68,7 @@ class Audio extends React.Component {
         Tone.Transport.swing = this.props.swing;
 
         return (
-            <div onClick={this.startLoop}>    
+            <div onClick={this.startLoop} id="playPause">    
                 <PlayPause />
             </div>
         )

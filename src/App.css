@@ -1,0 +1,58 @@
+
+#bpm {
+    font-size: 63px;
+    margin: 0;
+    width: 50%;
+    display: inline-block;
+}
+
+#config {
+    display: inline-block;
+    width: 50%;}
+
+#StartPageWrapper {
+    text-align: center;
+}
+
+#buttons {
+    display: flex;
+}
+
+.IncDecButton {
+    height: 4em;
+    margin: 1em;
+    flex-grow: 1;
+}
+
+.IncDecButton > img {
+    height: 100%
+}
+
+#playPause {
+    display: inline-block;
+    flex-grow: 2;
+    height: 6em;
+}
+
+#playPause > img {
+    height: 100%
+}
+
+#range {
+    width: 85%;
+}
+
+#swing {
+    display: inline-block;
+    width: 50%;
+}
+
+#radio {
+    display: inline-block;
+    width: 50%;
+}
+
+.radio {
+    height: 20px;
+    margin: 2em;
+}
