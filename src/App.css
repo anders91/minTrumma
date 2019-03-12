@@ -1,3 +1,9 @@
+.app {
+    display: flex;
+    align-items: flex-end;
+    height: 100vh;
+}
+
 
 #bpm {
     font-size: 63px;
@@ -40,6 +46,7 @@
 
 #range {
     width: 85%;
+    margin-bottom: 5%
 }
 
 #swing {

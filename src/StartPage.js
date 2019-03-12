@@ -23,7 +23,7 @@ class StartPage extends React.Component {
     }
 
     componentDidMount() {
-        this.wrapper = document.querySelector("app");
+        this.wrapper = document.querySelector("body");
         disableBodyScroll(this.wrapper);
     }
 
