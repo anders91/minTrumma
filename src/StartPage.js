@@ -23,7 +23,7 @@ class StartPage extends React.Component {
     }
 
     componentDidMount() {
-        this.wrapper = document.querySelector("body");
+        this.wrapper = document.querySelector("html");
         disableBodyScroll(this.wrapper);
     }
 
@@ -96,6 +96,16 @@ class StartPage extends React.Component {
                                 Tretakt
                             </label>
                             </div>
+                            <div className="radio">
+                            <label>
+                                <input 
+                                    type="radio" 
+                                    value="6/8"
+                                    checked={this.state.rhythmPattern === "6/8"}
+                                    onChange={(e) => this.changeTimeSignature(rhythms["6/8"], [6, 8], e)}/>
+                                6/8
+                            </label>
+                            </div>
                         </form>
                     </div>
                 </div>
@@ -113,6 +123,7 @@ class StartPage extends React.Component {
                         kickRhythm = {this.state.rhythms.kickRhythm}
                         swing = {this.state.swing}
                         timeSignature = {this.state.timeSignature}
+                        rhythmPattern = {this.state.rhythmPattern}
                     />
                     <IncDecButton 
                         img={plusImg}
@@ -121,14 +132,16 @@ class StartPage extends React.Component {
                     />
 
                 </div>
-                <input  
-                        id="range"
-                        type='range'
-                        value={this.state.bpm}
-                        min="30"
-                        max="280" 
-                        onChange={(event) => this.handleBpm("range", null, event)}>
-                </input>
+                <div id="rangeWrapper">
+                    <input  
+                            id="range"
+                            type='range'
+                            value={this.state.bpm}
+                            min="30"
+                            max="280" 
+                            onChange={(event) => this.handleBpm("range", null, event)}>
+                    </input>
+                </div>
             </div>
         )
     }

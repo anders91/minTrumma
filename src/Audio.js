@@ -22,7 +22,7 @@ class Audio extends React.Component {
     componentDidUpdate(prevProps, prevState) {
         console.log(this.props)
 
-        if (prevProps.timeSignature !== this.props.timeSignature) {
+        if (prevProps.rhythmPattern !== this.props.rhythmPattern) {
 
             this.makeLoop(this.props.hihatRhythm, this.props.snareRhythm, this.props.kickRhythm);
 
@@ -66,7 +66,6 @@ class Audio extends React.Component {
         Tone.Transport.loop = true;
         Tone.Transport.loopEnd = "1m";
         Tone.Transport.swing = this.props.swing;
-
         return (
             <div onClick={this.startLoop} id="playPause">    
                 <PlayPause />
