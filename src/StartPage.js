@@ -12,10 +12,12 @@ class StartPage extends React.Component {
         super();
         this.state = {
             bpm: 120,
-            swing: "0",
+            swing: false,
             timeSignature: "4",
             rhythms: rhythms.fyrtakt,
-            rhythmPattern: "fyrtakt"
+            rhythmPattern: "fyrtakt",
+            disableSwing: false,
+            multiplier: 1
         }
         this.handleBpm = this.handleBpm.bind(this);
         this.handleSwing = this.handleSwing.bind(this);
@@ -27,24 +29,29 @@ class StartPage extends React.Component {
         disableBodyScroll(this.wrapper);
     }
 
-    changeTimeSignature(newRhythm, newTimeSignature, event) {
+    changeTimeSignature(newRhythm, newTimeSignature, disableSwing, newMultiplier, event) {
+        if (disableSwing === true) {
+            this.setState({swing: false})
+        }
         this.setState({
                 rhythms: newRhythm,
+                disableSwing: disableSwing,
                 timeSignature: newTimeSignature,
-                rhythmPattern: event.target.value
+                rhythmPattern: event.target.value,
+                multiplier: newMultiplier
             }
         )
     }
 
     handleSwing() {
-        if (this.state.swing === "0"){
+        if (this.state.swing === false){
             this.setState(
-                {swing: "0.5"}
+                {swing: true}
             )
         }
-        else if (this.state.swing === "0.5") {
+        else if (this.state.swing === true) {
             this.setState(
-                {swing: "0"}
+                {swing: false}
             )
         }
     }
@@ -68,11 +75,11 @@ class StartPage extends React.Component {
         return (
             <div id="StartPageWrapper">
                 <div>
-                    <h3 id="bpm">Bpm: {this.state.bpm}</h3>
+                    <h3 id="bpm">Bpm: {Math.floor(this.state.bpm * this.state.multiplier)}</h3>
                     <div id="config">
                         <label id="swing">
-                            <input type="checkbox" onChange={this.handleSwing}></input>
-                            Swing
+                            <input type="checkbox" onChange={this.handleSwing} checked={this.state.swing} disabled={this.state.disableSwing} ></input>
+                            {this.state.disableSwing ? <s>Swing</s> : "Swing"}
                         </label>
         
                         <form id="radio">
@@ -82,8 +89,8 @@ class StartPage extends React.Component {
                                     type="radio"
                                     value="fyrtakt"
                                     checked={this.state.rhythmPattern === "fyrtakt"}
-                                    onChange={(e) => this.changeTimeSignature(rhythms.fyrtakt, "4", e)}/>
-                                Fyrtakt
+                                    onChange={(e) => this.changeTimeSignature(rhythms.fyrtakt, "4", rhythms.fyrtakt.disableSwing, 1, e)}/>
+                                4/4
                             </label>
                             </div>
                             <div className="radio">
@@ -92,8 +99,8 @@ class StartPage extends React.Component {
                                     type="radio" 
                                     value="tretakt"
                                     checked={this.state.rhythmPattern === "tretakt"}
-                                    onChange={(e) => this.changeTimeSignature(rhythms.tretakt, "3", e)}/>
-                                Tretakt
+                                    onChange={(e) => this.changeTimeSignature(rhythms.tretakt, "3", rhythms.tretakt.disableSwing, 1, e)}/>
+                                3/4npm
                             </label>
                             </div>
                             <div className="radio">
@@ -102,7 +109,7 @@ class StartPage extends React.Component {
                                     type="radio" 
                                     value="6/8"
                                     checked={this.state.rhythmPattern === "6/8"}
-                                    onChange={(e) => this.changeTimeSignature(rhythms["6/8"], [6, 8], e)}/>
+                                    onChange={(e) => this.changeTimeSignature(rhythms["6/8"], [6, 8], rhythms["6/8"].disableSwing, 2/3, e)}/>
                                 6/8
                             </label>
                             </div>
@@ -121,7 +128,7 @@ class StartPage extends React.Component {
                         hihatRhythm = {this.state.rhythms.hihatRhythm}
                         snareRhythm = {this.state.rhythms.snareRhythm}
                         kickRhythm = {this.state.rhythms.kickRhythm}
-                        swing = {this.state.swing}
+                        swing = {this.state.swing ? "0.4" : "0"}
                         timeSignature = {this.state.timeSignature}
                         rhythmPattern = {this.state.rhythmPattern}
                     />
