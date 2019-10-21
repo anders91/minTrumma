@@ -100,7 +100,7 @@ class StartPage extends React.Component {
                                     value="tretakt"
                                     checked={this.state.rhythmPattern === "tretakt"}
                                     onChange={(e) => this.changeTimeSignature(rhythms.tretakt, "3", rhythms.tretakt.disableSwing, 1, e)}/>
-                                3/4npm
+                                3/4
                             </label>
                             </div>
                             <div className="radio">
